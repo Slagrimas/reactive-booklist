@@ -6,7 +6,6 @@ import BookList from '../BookList';
 import AddBook from '../AddBook';
 import { loadBooks } from '../../actions/bookActions'
 
-
 class App extends Component {
     constructor(props) {
         super(props)
@@ -33,7 +32,7 @@ class App extends Component {
     }
 
     addBook({ title, author }) {
-        const _id = this.state.currentId;
+        const _id = this.props.currentId;
         const { books } = this.state;
 
         const newBook = { _id, title, author };

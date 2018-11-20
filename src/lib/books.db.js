@@ -16,6 +16,8 @@ const booksFromFakeDB = [{
 ];
 let bookIndex = 4;
 
+
+
 export const getBooksFromFakeXHR = () => new Promise((resolve, reject) => {
   setTimeout(() => resolve([...booksFromFakeDB]), 500);
 });

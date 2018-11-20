@@ -8,7 +8,6 @@ services:
     container_name: ${IMAGE_NAME}
     volumes:
       - ".:/app"
-      - node-modules-volume:/app/node_modules
     env_file: .env
     environment:
       NODE_ENV: development
@@ -22,7 +21,7 @@ services:
     volumes: 
       - pg-data-volume:/var/lib/postgresql/data
     ports: 
-      - '${POSTGRES_HOST_PORT}:${POSTGRES_CONTAINER_PORT}'
+      - "${POSTGRES_HOST_PORT}:${POSTGRES_CONTAINER_PORT}"
     networks:
       - my-app-network
   # redis-server:
@@ -35,7 +34,6 @@ services:
   #   networks:
   #     - my-app-network
 volumes:
-  node-modules-volume:
   pg-data-volume:
   # redis-data-volume:
 networks:

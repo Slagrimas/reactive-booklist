@@ -30,9 +30,9 @@ class App extends Component {
             author: 'Orson Scott Card'
         }]
         this.props.loadBooks(mockBooks);
-        axios.get('/api/smoke')
+        axios.get('/api/books')
         .then(response => {
-            console.log('smoke test: ', response.data)
+            console.log('books ', response.data)
         })
         .catch(err => {console.log(err)});
     }

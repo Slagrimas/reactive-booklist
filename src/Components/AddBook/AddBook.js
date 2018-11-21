@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
 class AddBook extends Component {
     constructor(props) {
@@ -6,42 +8,57 @@ class AddBook extends Component {
 
         this.state = {
             _id: 0,
-            title: 'Add a title here',
-            author: 'Add a Author here'
+            title: '',
+            author: ''
         };
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.addNewBook = this.addNewBook.bind(this);
+    }
+    handleInputChange(event) {
+        switch (event.target.id) {
+            case "title":
+                this.setState({ title: event.target.value })
+                break;
 
-        this.onTitleChange = this.onTitleChange.bind(this);
-        this.onAuthorChange = this.onAuthorChange.bind(this);
-        this.clickHandler = this.clickHandler.bind(this);
+            case "author":
+                this.setState({ author: event.target.value })
+                break;
+            default:
+        }
     }
 
-    onTitleChange(event) {
-        console.log(event.target.value)
-        this.setState( { title: event.target.value } );
+    addNewBook(event) {
+        event.preventDefault();
+        const data = {
+            title: this.state.title,
+            author: this.state.author
+        }
+        axios.post('/api/books', data)
+            .then(response => {
+
+                const book = response.data;
+
+                console.log(book);
+
+                this.setState({
+                    title: '',
+                    author: ''
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
-    onAuthorChange(event) {
-        this.setState( {author: event.target.value} )
-    }
-
-    clickHandler(){
-        const  { addBook } = this.props;
-        const { title, author } = this.state;
-
-        addBook ( { title, author });
-
-        this.setState({title: 'Add a title here', author: 'Add a Author here'})
-
-    }
     render() {
-    
+        const { title, author } = this.state
         return (
             <div className="add-book-form">
-                <input type="text" value={this.state.title} onChange={this.onTitleChange}/>
+                <input type="text" id="title" value={title} onChange={this.handleInputChange} />
 
-                <input type="text" value={this.state.author} onChange={this.onAuthorChange}/>
+                <input type="text" id="author" value={author} onChange={this.handleInputChange} />
 
-                <button onClick={this.clickHandler}>
+                <button onClick={this.addNewBook}>
                     Add Book
             </button>
 
@@ -49,4 +66,5 @@ class AddBook extends Component {
         )
     }
 }
+
 export default AddBook;

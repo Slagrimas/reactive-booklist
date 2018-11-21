@@ -16,13 +16,14 @@
     "react-dom": "^16.6.3",
     "react-redux": "^5.1.1",
     "react-scripts": "2.1.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "db:migrate": "POSTGRES_HOSTNAME=localhost ./node_modules/.bin/knex migrate:latest",
     "db:rollback": "POSTGRES_HOSTNAME=localhost ./node_modules/.bin/knex migrate:rollback",
     "seed": "POSTGRES_HOSTNAME=localhost ./node_modules/.bin/knex seed:run",
-    "dev": "./node_modules/.bin/nodemon ./server/index.js",
+    "dev": "./node_modules/.bin/nodemon ./server/index.js --watch ./server/ --verbase",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

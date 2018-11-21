@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
+import { addBook } from "../../actions/bookActions";
 
 class AddBook extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
             _id: 0,
             title: '',
@@ -33,21 +32,21 @@ class AddBook extends Component {
             title: this.state.title,
             author: this.state.author
         }
-        axios.post('/api/books', data)
-            .then(response => {
+        // axios.post('/api/books', data)
+            // .then(response => {
 
-                const book = response.data;
+            //     const book = response.data;
 
-                console.log(book);
+                this.props.addBook(data)
 
                 this.setState({
                     title: '',
                     author: ''
                 })
-            })
-            .catch(err => {
-                console.log(err);
-            })
+            // })
+            // .catch(err => {
+            //     console.log(err);
+            // })
     }
 
     render() {
@@ -55,9 +54,7 @@ class AddBook extends Component {
         return (
             <div className="add-book-form">
                 <input type="text" id="title" value={title} onChange={this.handleInputChange} />
-
                 <input type="text" id="author" value={author} onChange={this.handleInputChange} />
-
                 <button onClick={this.addNewBook}>
                     Add Book
             </button>
@@ -67,4 +64,12 @@ class AddBook extends Component {
     }
 }
 
-export default AddBook;
+const mapDispatchToProps = dispatch => {
+    return {
+        addBook: (book) => {
+            dispatch(addBook(book));
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(AddBook);
